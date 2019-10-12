@@ -17,7 +17,7 @@ public class ReadDocFileFromJava {
 
     public static void main(String[] args) {
         /**This is the document that you want to read using Java.**/
-        String fileName = "C:\\Users\\leona\\Documents\\TEC\\2 Semestre\\Estructura de Datos 1\\Actividad 1.docx";
+        String fileName = "C:\\Users\\leona\\Documents\\TEC\\2 Semestre\\Comunicacion Tecnica\\comunicación tecanica Textos(Manual).docx";
 
         /**Method call to read the document (demonstrate some useage of POI)**/
         readMyDocument(fileName);
@@ -55,12 +55,12 @@ public class ReadDocFileFromJava {
         String[] paragraphs = we.getParagraphText();
         System.out.println("Total Paragraphs: "+paragraphs.length);
         int i = 0;
-        for (i &lt; paragraphs.length;i++) {
+        /*for (i < (int)paragraphs.length;i++) {
 
             System.out.println("Length of paragraph "+(i +1)+": "+ paragraphs[i].length());
             System.out.println(paragraphs[i].toString());
 
-        }
+        }*/
 
     }
 
@@ -87,14 +87,14 @@ public class ReadDocFileFromJava {
         int slideCount=summaryInfo.getSlideCount();
 
 
-    enter code here
+    /*enter code here
         System.out.println("---------------------------");
         System.out.println("Category: "+category);
         System.out.println("Company: "+company);
         System.out.println("Line Count: "+lineCount);
         System.out.println("Section Count: "+sectionCount);
         System.out.println("Slide Count: "+slideCount);
-
+*/
     }
 
 }
