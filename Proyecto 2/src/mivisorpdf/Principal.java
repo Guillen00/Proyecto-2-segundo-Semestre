@@ -13,6 +13,15 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +32,7 @@ public class Principal extends javax.swing.JFrame {
     DefaultListModel modelo;
     DefaultTableModel modelotabla;
     String buscarpalabra;
+    Object[] valtabla;
     
     //Contiene el archivo PDF en bytes de imagenes
     private ArrayList<ArchivosVO> ListaComponente;
@@ -45,6 +55,8 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         modelo= new DefaultListModel();
+        modelotabla = (DefaultTableModel) jTable1.getModel();
+        
     }
 
     /**
@@ -67,6 +79,7 @@ public class Principal extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        button4 = new java.awt.Button();
 
         popupMenu1.setLabel("popupMenu1");
 
@@ -132,24 +145,37 @@ public class Principal extends javax.swing.JFrame {
             new String [] {
                 "Nombre", "Fecha Creación", "Tamaño", "Texto"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setColumnSelectionAllowed(true);
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(200);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(200);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(100);
-            jTable1.getColumnModel().getColumn(2).setMinWidth(100);
-            jTable1.getColumnModel().getColumn(2).setMaxWidth(100);
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jLabel1.setText("Escribir texto a buscar");
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setText("Lista de busqueda");
+
+        button4.setActionCommand("Nueva Busqueda");
+        button4.setLabel("Nueva Busqueda");
+        button4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -172,13 +198,19 @@ public class Principal extends javax.swing.JFrame {
                                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(84, 84, 84)
-                                .addComponent(jLabel1))))
+                                .addComponent(jLabel1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
-                        .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -189,18 +221,19 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(157, 157, 157)
+                                .addGap(37, 37, 37)
+                                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(96, 96, 96)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 18, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,26 +269,53 @@ public class Principal extends javax.swing.JFrame {
         int i=0;
         int l=modelo.getSize();
         String comparar= "ftx";
+        String texto= "No se encontro";
         //leer lista de busqueda 
         while(i<l){
             int length = modelo.get(i).toString().length();
             if(modelo.get(i).toString().charAt(length-1)== comparar.charAt(1)){
-                lector_txt txt = new lector_txt(modelo.get(i).toString(),buscarpalabra);
+                lector_txt txt = new lector_txt();
+                texto= txt.lector_txt(modelo.get(i).toString(),buscarpalabra);
+                valtabla[3] =texto;
                 
             }
+        
         Object sFichero = modelo.get(i);
         File fichero = new File((String) sFichero);
         
         Vector vector=new Vector(20);
         //modelotabla.insertRow(i,vector);
         System.out.println(fichero.getName());
-        System.out.println(fichero.length());
+        System.out.println(fichero.length() + "Bytes");
+        valtabla = new Object[4];
+        // Fecha de creacion 
+        BasicFileAttributes attrs;
+		try {
+		    attrs = Files.readAttributes(fichero.toPath(), BasicFileAttributes.class);
+		    FileTime time = attrs.creationTime();
+		    
+		    String pattern = "yyyy-MM-dd HH:mm:ss";
+		    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+			
+		    String formatted = simpleDateFormat.format( new Date( time.toMillis() ) );
+
+                    valtabla[1] =formatted;
+                    } catch (IOException e) {
+		    e.printStackTrace();
+		}
+        //System.out.println(fichero.lastModified());
         
+        valtabla[0] =fichero.getName();
+        valtabla[2] =fichero.length() + "Bytes";
+        
+        //modelotabla.addRow(valtabla);
+        modelotabla.insertRow(i, valtabla);
         i++; 
+
         
-        }
+        
         System.out.println(buscarpalabra);
-        
+        } 
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
@@ -263,6 +323,16 @@ public class Principal extends javax.swing.JFrame {
         int index = jList1.getSelectedIndex();
         modelo.remove(index);
     }//GEN-LAST:event_button3ActionPerformed
+
+    private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
+        //Nueva busquedad
+        int i=0;
+        int l=modelo.getSize();
+        while(i<l){
+            modelotabla.removeRow(i);
+            i++;
+        }
+    }//GEN-LAST:event_button4ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -303,6 +373,7 @@ public class Principal extends javax.swing.JFrame {
     private java.awt.Button button1;
     private java.awt.Button button2;
     private java.awt.Button button3;
+    private java.awt.Button button4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JList<String> jList1;
