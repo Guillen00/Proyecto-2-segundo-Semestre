@@ -5,6 +5,7 @@
  */
 package mivisorpdf;
 
+//import pueba.pkg2.pkg0.MiVisorPDF;
 import VO.ArchivosVO;
 import java.io.File;
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -56,6 +59,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         modelo= new DefaultListModel();
         modelotabla = (DefaultTableModel) jTable1.getModel();
+        tabla();
         
     }
 
@@ -306,7 +310,7 @@ public class Principal extends javax.swing.JFrame {
         //System.out.println(fichero.lastModified());
         
         valtabla[0] =fichero.getName();
-        valtabla[2] =fichero.length() + "Bytes";
+        valtabla[2] =fichero.length() ;
         
         //modelotabla.addRow(valtabla);
         modelotabla.insertRow(i, valtabla);
@@ -333,7 +337,12 @@ public class Principal extends javax.swing.JFrame {
             i++;
         }
     }//GEN-LAST:event_button4ActionPerformed
-    
+    private void tabla(){
+        System.out.print(modelotabla.getClass()+ " valor ");
+        TableRowSorter<TableModel> elQueOrdena = new TableRowSorter<TableModel>(modelotabla);
+        jTable1.setRowSorter(elQueOrdena);
+       
+    }
     /**
      * @param args the command line arguments
      */
