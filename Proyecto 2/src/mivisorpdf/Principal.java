@@ -40,6 +40,7 @@ public class Principal extends javax.swing.JFrame {
     Vector nombres;
     String Nombre,Fecha, Texto;
     int Tamaño;
+    public static int count1,count2,count3;
     
     //Contiene el archivo PDF en bytes de imagenes
     private ArrayList<ArchivosVO> ListaComponente;
@@ -64,7 +65,9 @@ public class Principal extends javax.swing.JFrame {
         modelo= new DefaultListModel();
         modelotabla = (DefaultTableModel) jTable1.getModel();
         tabla();
-        
+        int count1 =0;
+        int count2 =0;
+        int count3 =0;
     }
 
     /**
@@ -312,8 +315,8 @@ public class Principal extends javax.swing.JFrame {
         Object sFichero = modelo.get(i);
         File fichero = new File((String) sFichero);
         //modelotabla.insertRow(i,vector);
-        System.out.println(fichero.getName());
-        System.out.println(fichero.length() + "Bytes");
+        /*System.out.println(fichero.getName());
+        System.out.println(fichero.length() + "Bytes");*/
         
         // Fecha de creacion 
         BasicFileAttributes attrs;
@@ -321,12 +324,13 @@ public class Principal extends javax.swing.JFrame {
 		    attrs = Files.readAttributes(fichero.toPath(), BasicFileAttributes.class);
 		    FileTime time = attrs.creationTime();
 		    
-		    String pattern = "yyyy-MM-dd HH:mm:ss";
+		    String pattern = "yyyy-MM-dd";
 		    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 			
 		    String formatted = simpleDateFormat.format( new Date( time.toMillis() ) );
 
                     Fecha =formatted;
+                    
                     } catch (IOException e) {
 		    e.printStackTrace();
 		}
@@ -346,8 +350,8 @@ public class Principal extends javax.swing.JFrame {
         
         
         
-        System.out.println(buscarpalabra);
-        System.out.println(modelotabla.getDataVector());
+        /*System.out.println(buscarpalabra);
+        System.out.println(modelotabla.getDataVector());*/
         } 
         nombres.addElement("Nombre");
         nombres.addElement("Fecha de Modificacion");
@@ -373,26 +377,42 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_button4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // Ordenar nombres 
         QuickSort ob = new QuickSort();
-        
-        System.out.println(datos.get(1)+"  lista");
-        System.out.println(ob.QuickSort(datos));
+        // Ordenar nombres 
+        if (count1%2==0){
+        /*System.out.println(datos.get(1)+"  lista");
+        System.out.println(ob.QuickSort(datos));*/
         modelotabla.setDataVector(ob.QuickSort(datos),nombres);
+        }
+        else{
+        modelotabla.setDataVector(ob.QuickSort1(datos),nombres);
+        }
+        System.out.println(count1);
+        count1++;
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // Ordenar fechas 
-        
+        BubbleSort oc = new BubbleSort();
+        if (count2%2==0){
+        modelotabla.setDataVector(oc.Bubble(datos),nombres);}
+        else{
+        modelotabla.setDataVector(oc.Bubble1(datos),nombres);
+        }
+        count2++;
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // Ordenar por tamaño
         Radix ov =new Radix();
-        System.out.println(datos +"   radix");
-        System.out.println(ov.radix(datos));
-        modelotabla.setDataVector(ov.radix(datos),nombres);
-        
+        /*System.out.println(datos +"   radix");
+        System.out.println(ov.radix(datos));*/
+        if (count3%2==0){
+        modelotabla.setDataVector(ov.radix(datos),nombres);}
+        else{
+        //modelotabla.setDataVector(ov.radix1(datos),nombres);
+        }
+        count3++;
     }//GEN-LAST:event_jButton5ActionPerformed
     private void tabla(){
         TableRowSorter<TableModel> elQueOrdena = new TableRowSorter<TableModel>(modelotabla);
