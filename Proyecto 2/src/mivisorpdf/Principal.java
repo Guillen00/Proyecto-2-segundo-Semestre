@@ -7,6 +7,9 @@ package mivisorpdf;
 
 //import pueba.pkg2.pkg0.MiVisorPDF;
 import VO.ArchivosVO;
+import java.awt.Desktop;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -41,6 +44,8 @@ public class Principal extends javax.swing.JFrame {
     String Nombre,Fecha, Texto;
     int Tamaño;
     public static int count1,count2,count3;
+    Vector valores;
+    int fila;
     
     //Contiene el archivo PDF en bytes de imagenes
     private ArrayList<ArchivosVO> ListaComponente;
@@ -68,6 +73,7 @@ public class Principal extends javax.swing.JFrame {
         int count1 =0;
         int count2 =0;
         int count3 =0;
+        
     }
 
     /**
@@ -145,6 +151,11 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
@@ -203,26 +214,18 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
-                                .addComponent(jLabel1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                        .addGap(116, 116, 116)
+                        .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -238,18 +241,18 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(button3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96)
+                .addGap(89, 89, 89)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -278,7 +281,7 @@ public class Principal extends javax.swing.JFrame {
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
         //Buscar
         JFileChooser j = new JFileChooser(ruta_archivo);
-        FileNameExtensionFilter fi = new FileNameExtensionFilter("pdf", "pdf","docx","txt");
+        FileNameExtensionFilter fi = new FileNameExtensionFilter("pdf", "pdf","docx","docx","txt","txt");
         j.setFileFilter(fi);
         int se = j.showOpenDialog(this);
         if (se == 0) {
@@ -293,6 +296,7 @@ public class Principal extends javax.swing.JFrame {
         nombres[3]="Texto";*/
     }//GEN-LAST:event_button2ActionPerformed
 
+    @SuppressWarnings("empty-statement")
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
         //Buscar
         datos= new Vector();
@@ -304,14 +308,7 @@ public class Principal extends javax.swing.JFrame {
         String texto= "No se encontro";
         //leer lista de busqueda 
         while(i<l){
-            int length = modelo.get(i).toString().length();
-            /*if(modelo.get(i).toString().charAt(length-1)== comparar.charAt(1)){
-                lector_txt txt = new lector_txt();
-                texto= txt.lector_txt(modelo.get(i).toString(),buscarpalabra);
-                valtabla[3] =texto;
-             */   
-            //}
-        
+            
         Object sFichero = modelo.get(i);
         File fichero = new File((String) sFichero);
         //modelotabla.insertRow(i,vector);
@@ -334,15 +331,54 @@ public class Principal extends javax.swing.JFrame {
                     } catch (IOException e) {
 		    e.printStackTrace();
 		}
+                
+        int length = modelo.get(i).toString().length();
+            if(modelo.get(i).toString().charAt(length-1)== comparar.charAt(1)){
+                Lector_txt1 txt = new Lector_txt1();
+                valores = new Vector();
+                valores = txt.txt(modelo.get(i).toString(),buscarpalabra);
+                int o =0 ;
+                while ( o < valores.size()){
+                   valtabla = new Vector();
+                    Nombre =fichero.getName();
+                    Tamaño =(int) fichero.length();
+                    valtabla.addElement(Nombre);
+                    valtabla.addElement(Fecha);
+                    valtabla.addElement(Tamaño);
+                    valtabla.addElement(valores.get(o).toString());
+                    datos.addElement(valtabla); 
+                    o++;
+            }
+              
+            }
+            if(modelo.get(i).toString().charAt(length-1)== comparar.charAt(0)){
+                Lector_pdf pdf = new Lector_pdf();
+                pdf.PDF(modelo.get(i).toString(),buscarpalabra);
+                valores = new Vector();
+                valores = pdf.PDF(modelo.get(i).toString(),buscarpalabra);
+                int o =0 ;
+                while ( o < valores.size()){
+                   valtabla = new Vector();
+                    Nombre =fichero.getName();
+                    Tamaño =(int) fichero.length();
+                    valtabla.addElement(Nombre);
+                    valtabla.addElement(Fecha);
+                    valtabla.addElement(Tamaño);
+                    valtabla.addElement(valores.get(o).toString());
+                    datos.addElement(valtabla); 
+                    o++;
+            }
+            }
+        
         //System.out.println(fichero.lastModified());
-        valtabla = new Vector();
+        /*valtabla = new Vector();
         Nombre =fichero.getName();
         Tamaño =(int) fichero.length();
         valtabla.addElement(Nombre);
         valtabla.addElement(Fecha);
         valtabla.addElement(Tamaño);
         valtabla.addElement(Texto);
-        datos.addElement(valtabla);
+        datos.addElement(valtabla);*/
         //modelotabla.addRow(valtabla);
         //modelotabla.insertRow(i, valtabla);
         
@@ -369,9 +405,11 @@ public class Principal extends javax.swing.JFrame {
     private void button4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button4ActionPerformed
         //Nueva busquedad
         int i=0;
-        int l=modelo.getSize();
+        int l= modelotabla.getRowCount();
         while(i<l){
             modelotabla.removeRow(i);
+            
+            //modelotabla.setDataVector(datos, nombres);
             i++;
         }
     }//GEN-LAST:event_button4ActionPerformed
@@ -414,6 +452,48 @@ public class Principal extends javax.swing.JFrame {
         }
         count3++;
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        //tabla 
+        valores = new Vector();
+        datos = new Vector();
+        jTable1.addMouseListener(new MouseAdapter()
+    	{
+    		public void mouseClicked(MouseEvent evnt)
+    		{
+                    if (evnt.getClickCount() == 2)
+                    {
+                          System.out.println("Entro a la funcion");
+                          fila = jTable1.getSelectedRow();
+                          System.out.println(fila+"   int");
+                          valores = modelotabla.getDataVector();
+                          datos= (Vector)valores.get(fila);
+                          String comp =  datos.get(0).toString();
+                          System.out.println(comp +"   nombre");
+                          int k=0;
+                          while (k < modelo.getSize()){
+
+                              Object sFichero = modelo.get(k);
+                              File fichero = new File((String) sFichero);
+                              System.out.println(fichero.getName()+"   name");
+                              if(fichero.getName().compareTo(comp)==0){
+                                  System.out.println("   entro");
+                                  try {
+                                      File path = new File (modelo.get(k).toString());
+                                      Desktop.getDesktop().open(path);
+
+                                         }catch (IOException ex) {
+                                      ex.printStackTrace();
+                              }
+
+                              }
+                              k++;
+                          }
+                    }
+    		}
+    	});
+        
+    }//GEN-LAST:event_jTable1MouseClicked
     private void tabla(){
         TableRowSorter<TableModel> elQueOrdena = new TableRowSorter<TableModel>(modelotabla);
         jTable1.setRowSorter(elQueOrdena);
