@@ -20,7 +20,11 @@ import java.util.Vector;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Clase Lector_txt1 que se encarga de la lectura y manejo de documentos .txt
+ */
 public class Lector_txt1 {
+    //Dechlaran variables para contener ingformacion sobre procesos de la lectura y busqueda de la palabra
     static final ListaEnlazada<BST> ListaArboles = new ListaEnlazada();
     static final BST ArbolPalabras = new BST();
     static int Palabras;
@@ -44,14 +48,18 @@ public class Lector_txt1 {
 
     public Lector_txt1() {
     }
-
+//llamada a los metodos de leer txt y luego automaticamente al de busqueda
     public Vector txt(String ruta,String palabrabuscar) {
         File f = new File(ruta);
         readTXTFile(f);
         return buscar(Texto,palabrabuscar);
         
     }
-
+/**
+     * MÃ©todo que lee el archivo *.txt
+     * @param file Ruta del archivo
+     * @throws IOException ExcepciÃ³n si el archivo no es correcto
+     */
     private static void readTXTFile(File F) {
         try {
             FileReader fr = new FileReader(F);
@@ -105,7 +113,10 @@ public class Lector_txt1 {
         }
 
     }
-
+    /**
+     * Metodo que busca la palabra en el archivo *.txt
+     * @param doc texto del documento elegido
+     */
     private static Vector buscar(String doc,String texto) {
         data=new Vector();
         try {
@@ -138,31 +149,51 @@ public class Lector_txt1 {
         System.out.println("data " + data);
         return data;
     }
-
+    /**
+     * MÃ©todo para establecer la fecha de ingreso del documento a la biblioteca
+     */
     private void setDate() {
         this.Date = LocalDateTime.now();
     }
-
+    /**
+     * MÃ©todo que retorna el Ã¡rbol binario del archivo deseado
+     * @return Ãrbol binario del archivo
+     */
     public BST getArbolPalabras() {
         return ArbolPalabras;
     }
-
+    /**
+     * MÃ©todo que retorna la cantidad de palabras en el documento
+     * @return Cantidad de  palabras en el documento
+     */
     public int getPalabras() {
         return Palabras;
     }
-
+    /**
+     * MÃ©todo que retorna el nÃºmero de archivo
+     * @return Entero correspondiente al nÃºmero del archivo
+     */
     public int getNumArchivo() {
         return this.numArchivo;
     }
-
+/**
+     * MÃ©todo que retorna la ruta del archivo
+     * @return Ruta del archivo deseado
+     */
     public File getURL() {
         return this.URL;
     }
-
+    /**
+     * MÃ©todo que retorn el texto del archivo
+     * @return Texto del archivo
+     */
     public String getTexto() {
         return Texto;
     }
-
+    /**
+     * MÃ©todo que retorna el nombre del archivo
+     * @return Nombre del archivo
+     */
     public String getNombre() {
         return this.Nombre;
     }

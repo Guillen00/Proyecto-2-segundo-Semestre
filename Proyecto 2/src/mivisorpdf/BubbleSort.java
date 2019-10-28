@@ -26,7 +26,7 @@ public class BubbleSort {
                 }} 
     } 
   
-    /**Función que llama a todas las demás y retorna un Vector que trasporta las ocurrencias a la clase principal*/
+    /** Función que llama a todas las demás y retorna un Vector que trasporta las ocurrencias a la clase principal*/
     public  Vector Bubble(Vector arr) 
     { 
         bubbleSort(arr);

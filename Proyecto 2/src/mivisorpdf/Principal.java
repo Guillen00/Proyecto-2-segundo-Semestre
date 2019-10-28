@@ -1,6 +1,4 @@
-/*
- * Esta es la clase se da el desarrollo de todo el programa llamando a todas las clases para su funcionamiento y a demás la creación de la interfase gráfica 
- */
+
 package mivisorpdf;
 
 //import pueba.pkg2.pkg0.MiVisorPDF;
@@ -27,9 +25,8 @@ import java.util.logging.Logger;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author leona
+/*
+ * Esta es la clase se da el desarrollo de todo el programa llamando a todas las clases para su funcionamiento y a demás la creación de la interfase gráfica 
  */
 public class Principal extends javax.swing.JFrame {
     /**

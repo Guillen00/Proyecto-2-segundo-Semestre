@@ -17,6 +17,9 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 
+/**
+ * Clase Lector_docx que se encarga de la lectura y manejo de documentos .DOCX
+ */
 
 public class Lector_docx {
 	
@@ -57,13 +60,44 @@ public class Lector_docx {
     //esto es para el metodo buscar texto
     
     static Scanner entrada = null;
+    /**
+     * Variable para leer los datos
+     */
+
     static String linea;
+    /**
+     * Variable para almacenar el texto
+     */
+
     static int numeroDeLinea = 1;
+    /**
+     * Variable para identificar en que numero de linea esta la palabra o frase
+     */
+
     static boolean contiene = false;
+    /**
+     * Variable para saber si una linea contiene el texto a buscar
+     */
+
     static Scanner sc = new Scanner(System.in);
+    /**
+     * Variable para saber si una linea contiene el texto a buscar
+     */
+
     static Vector data;
+    /**
+     * Variable para guardar información
+     */
     static String datos;
+    /**
+     * @param
+     * Variable para guardar información
+     */
     private static FileNameExtensionFilter filtro;
+    /**
+     * 
+     * Variable para asignar el debido filtro del tipio de documento a buscar
+     */
 
 	public  Vector docx(String ruta,String palabrabuscar) {
             File f = new File(ruta);
@@ -128,7 +162,11 @@ public class Lector_docx {
 
     }
     
-    
+    /**
+     * Metodo que busca la palabra en el archivo *.docx
+     * @param doc texto del documento elegido
+     */
+
     private static Vector buscar(String doc,String texto) {
         data=new Vector();
     	try {
