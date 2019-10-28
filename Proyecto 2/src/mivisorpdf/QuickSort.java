@@ -1,14 +1,12 @@
 package mivisorpdf;
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * 
  */
 
 
 /**
  *
- * @author leona
+ * En esta clase se realiza el algoritmo de QickSort para ordenar datos con letras 
  */
 
 
@@ -17,15 +15,16 @@ import java.util.Vector;
 
 
 
-
+  /**
+ *
+ *  Clase principal dponde contiene a todas las demas funciones importantes de la clase 
+ */
 public class QuickSort 
 {       Vector cambio;
-	/* This function takes last element as pivot, 
-	places the pivot element at its correct 
-	position in sorted array, and places all 
-	smaller (smaller than pivot) to left of 
-	pivot and all greater elements to right 
-	of pivot */
+	  /**
+ *
+ *  Esta recibe como parametros la lista y dos indices dode agarra un pivot para compararlo con todos los datos e ir ordenando intercambiando datos en el vector principal
+ */
 	int partition(Vector arr, int low, int high) 
 	{ 
 		String pivot = (String) cambio(arr,high).get(0); 
@@ -85,37 +84,36 @@ public class QuickSort
 
     /**
      *
-     * @param arr
-     * @return
+     * En esta función se recibe un vector que sera el que se utilizará en todo el proceso de ordenamiento, llama al sort para que inicie el ordenamiento  
      */
 	public Vector QuickSort(Vector arr ) 
-	{       //Object[][] arr = new Object [4][1];
-		
-                /*arr[0][0]= "casa";
-                arr[1][0]= "ardilla";
-                arr[2][0]= "mesa";
-                arr[3][0]= "dedo";*/
+	{       
             
                 int n = arr.size(); 
-                /*System.out.println(arr);
-                System.out.println(n);*/
-		// ob = new QuickSort(); 
 		sort(arr, 0, n-1); 
 
 		System.out.println("sorted array"); 
-		//printArray(arr); 
                 return arr;
 	} 
+        /**Cambia del vector general a un vector que esta en su interior para poder acceder a cierta información en este caso la fecha */
         public Vector cambio(Vector arr,int i){
             cambio = new Vector();
             cambio = (Vector) arr.get(i);
             return cambio;
         }
+        /**
+     *
+     * Se reciben dos vectores y un indice , introduciendo un vector en la pocicion del indice dentro del otro 
+     */
         public Vector insertar(Vector cambio,Vector arr,int i){
             arr.set(i, cambio);
             return null;
         }
         //////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /**
+     *
+     * Las siguientes funciones hacen lo mismo que el anterior pero de forma descendente 
+     */
         public Vector QuickSort1(Vector arr ) 
 	{       
                 int n = arr.size();

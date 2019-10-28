@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mivisorpdf;
 
 /**
  *
- * @author leona
+ * En la clase Lista Enlazada , como su nombre lo insinua se van creando nodos que irán conectados en un orden especíico
  */
 public class ListaEnlazada<T> {
     private ListaEnlazada.Nodo<T> cabeza;
@@ -15,14 +11,20 @@ public class ListaEnlazada<T> {
 
     public ListaEnlazada() {
     }
-
+/**
+ *
+ * Se inserta información y nodo a la cabeza o sea el último dato
+ */
     public void InsertarInicio(T archivo) {
         ListaEnlazada.Nodo<T> nodo = new ListaEnlazada.Nodo(archivo);
         nodo.siguiente = this.cabeza;
         this.cabeza = nodo;
         ++this.largo;
     }
-
+/**
+ *
+ * Se envia el nodo al final de la lista enlazada 
+ */
     public void InsertarFinal(T archivo) {
         ListaEnlazada.Nodo<T> nodo = new ListaEnlazada.Nodo(archivo);
         if (this.cabeza == null) {
@@ -37,7 +39,10 @@ public class ListaEnlazada<T> {
         }
 
     }
-
+/**
+ *
+ * Inserta el Nodo evisando que este exista y que el último valor no sea nulo
+ */
     public void Insertar(int indice, T archivo) {
         ListaEnlazada.Nodo<T> nodo = new ListaEnlazada.Nodo(archivo);
         if (this.cabeza != null && indice != 0) {
@@ -55,7 +60,10 @@ public class ListaEnlazada<T> {
         }
 
     }
-
+/**
+ *
+ * Obtiene un indice de la Lista Enlazada, recorre con el for todo la lista hasta encontar que sean nulos
+ */
     public T Obtener(int indice) {
         if (this.cabeza == null) {
             return null;
@@ -70,11 +78,17 @@ public class ListaEnlazada<T> {
             return contador != indice ? null : puntero.archivo;
         }
     }
-
+/**
+ *
+ * Obtiene el largo de la lista
+ */
     public int getLargo() {
         return this.largo;
     }
-
+/**
+ *
+ * Elimina el primer datos que estaba a la cabeza de la lista 
+ */
     public void eliminarPrimero() {
         if (this.cabeza != null) {
             ListaEnlazada.Nodo<T> primer = this.cabeza;
@@ -84,7 +98,10 @@ public class ListaEnlazada<T> {
         }
 
     }
-
+/**
+ *
+ * Confirma si en el nodo cabeza esta solo para borrar o tiene algo más lo recorre hasta encontrar que sea nulo 
+ */
     public void eliminarUltimo() {
         if (this.cabeza != null) {
             if (this.cabeza.siguiente == null) {
@@ -100,7 +117,10 @@ public class ListaEnlazada<T> {
         }
 
     }
-
+/**
+ *
+ * Elimina datos si el indice de la lista es cero elimina el primero sino iguala el nodo puntero con la cabeza 
+ */
     public void eliminar(int indice) {
         if (this.cabeza != null) {
             if (indice == 0) {
@@ -120,7 +140,10 @@ public class ListaEnlazada<T> {
         }
 
     }
-
+/**
+ *
+ * Declara el valor del nodo siguiente y de la variable archivo 
+ */
     public static class Nodo<T> {
         public ListaEnlazada.Nodo<T> siguiente = null;
         public T archivo;
